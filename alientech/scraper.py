@@ -189,7 +189,10 @@ class AlienTechScraper(BaseHelper):
         for ind, row in all_vehicles_df.iterrows():
             result, idx = fetch_details(row, ind)
             all_vehicles_detailed.append(result)
+            print(all_vehicles_detailed)
             self.logger.info(f"[{ind+1}/{total}] Done -> Vehicle {ind+1}: {result.get('Model','Unknown')}")
+            if ind % 100 == 0:
+                pd.DataFrame(all_vehicles_detailed).to_csv("alientech_vehicles_details.csv", index=False)
 
         self.logger.info(f"Total detailed vehicles processed: {len(all_vehicles_detailed)}")
         pd.DataFrame(all_vehicles_detailed).to_csv("alientech_vehicles_details.csv", index=False)
