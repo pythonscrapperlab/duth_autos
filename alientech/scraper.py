@@ -187,9 +187,9 @@ class AlienTechScraper(BaseHelper):
         #         except Exception as e:
         #             self.logger.error(f"Error scraping vehicle {idx+1}: {e}")
         for ind, row in all_vehicles_df.iterrows():
+            # if ind<18580:continue
             result, idx = fetch_details(row, ind)
             all_vehicles_detailed.append(result)
-            print(all_vehicles_detailed)
             self.logger.info(f"[{ind+1}/{total}] Done -> Vehicle {ind+1}: {result.get('Model','Unknown')}")
             if ind % 100 == 0:
                 pd.DataFrame(all_vehicles_detailed).to_csv("alientech_vehicles_details.csv", index=False)
